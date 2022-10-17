@@ -4,10 +4,10 @@ const axios = require("axios");
 const NBA = require("nba");
 
 // function to get the data from the API 
+const NbaTeams= require('./NBATeam')
 
  
-
-
+console.log(NbaTeams.Hornets.market)
 
 
 const app = express();
