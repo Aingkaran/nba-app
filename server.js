@@ -1,13 +1,10 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const axios = require("axios");
-const NBA = require("nba");
-
-// function to get the data from the API 
 const NbaTeams= require('./NBATeam')
 
  
-console.log(NbaTeams.Hornets.market)
+console.log(NbaTeams.Hornets.id)
 
 
 const app = express();
@@ -21,11 +18,16 @@ app.get('/api/hello', (req, res) => {
 });
 
 app.post('/api/world', (req, res) => {
-    axios.get(`http://api.sportradar.us/nba/trial/v7/en/players/ab532a66-9314-4d57-ade7-bb54a70c65ad/profile.json?api_key=c83bmnmqk6rphqcyetq3r928`)
+    axios.get(`http://api.sportradar.us/nba/trial/v7/en/teams/${NbaTeams.Raptors.id}/profile.json?api_key=c83bmnmqk6rphqcyetq3r928`)
     .then((response=>{
-        console.log(response.data.full_name);
+        let Team =[]
+
+        for (let i=0;i<(response.data.players).length;i++){
+            console.log(response.data.players[i]);
+            Team.push(response.data.players[i])
+        }
         res.send(
-            `Player: ${response.data.full_name} `,
+            `Player: ${Team}  `,
           );
     }))
     .catch((err)=>{

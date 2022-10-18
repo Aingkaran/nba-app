@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
+import Players from './components/Players';
 
-import logo from './logo.svg';
 
-import './App.css';
 
 class App extends Component {
   state = {
@@ -45,7 +44,6 @@ render() {
         <header className="App-header">
 
         </header>
-        <div>YES SUHHHH</div>
 
         <p>{this.state.response}</p>
         <form onSubmit={this.handleSubmit}>
@@ -59,6 +57,7 @@ render() {
           />
           <button type="submit">Submit</button>
         </form>
+        <Players></Players>
         <p>{this.state.responseToPost}</p>
       </div>
     );
