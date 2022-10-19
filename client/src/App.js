@@ -1,11 +1,12 @@
 import React from "react";
 import "./App.css";
+import Players from "./components/Players";
 
 function App() {
   const [data, setData] = React.useState(null);
 
   React.useEffect(() => {
-    fetch("/")
+    fetch("/api")
       .then((res) => res.json())
       .then((data) => setData(data.express));
   }, []);
@@ -13,7 +14,7 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <p>{!data ? "Loading..." : data}</p>
+        <Players></Players>
       </header>
     </div>
   );

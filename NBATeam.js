@@ -237,3 +237,4 @@ const Kings=            {
             }
         
             module.exports = {Hawks,Celtics,Nets,Hornets,Cavaliers,Mavericks,Nuggets,Pistons, Warriors,Rockets,Pacers,Clippers,Lakers,Grizzlies,Heat,Bucks,Timberwolves,Pelicans,Knicks,Thunder,Magic,Sixers,Suns, Blazers,Kings,Spurs, Raptors,Jazz,Wizards}
+            export default Raptors

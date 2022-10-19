@@ -8,7 +8,7 @@ const NbaTeams= require('./routes/NBATeams')
 
 const app = express();
 const port = process.env.PORT || 5000;
-app.use('/', NbaTeams);
+app.use('/api', NbaTeams);
 
 
 
