@@ -1,12 +1,13 @@
 
 import React, { useState, useEffect } from "react";
-import  {Hawks,Celtics,Nets,Hornets,Cavaliers,Mavericks,Nuggets,Pistons, Warriors,Rockets,Pacers,Clippers,Lakers,Grizzlies,Heat,Bucks,Timberwolves,Pelicans,Knicks,Thunder,Magic,Sixers,Suns, Blazers,Kings,Spurs, Raptors,Jazz,Wizards} from './NBATeam'
+import  AllTeams from './NBATeam'
 
 const Players=(props)=>{
     const { PlayerName } = props;
     const { PPG } = props;
-    const Teams = [Hawks,Celtics,Nets,Hornets,Cavaliers,Mavericks,Nuggets,Pistons, Warriors,Rockets,Pacers,Clippers,Lakers,Grizzlies,Heat,Bucks,Timberwolves,Pelicans,Knicks,Thunder,Magic,Sixers,Suns, Blazers,Kings,Spurs, Raptors,Jazz,Wizards]
+    const Teams = ["Bucks","Cavaliers","Celtics",'Clippers','Grizzlies','Hawks','Heat','Hornets','Jazz','Kings','Knicks','Lakers','Magic','Mavericks','Nets','Nuggets','Pacers','Pelicans','Pistons','Raptors','Rockets','Sixers','Spurs','Suns','Thunder','Timberwolves',"Trail_Blazers",'Warriors','Wizards']
 
+    const [TeamChosen, setTeamChosen]= useState("")
 
 
     return(
@@ -15,12 +16,13 @@ const Players=(props)=>{
             <div>PPG: {PPG}</div>
 
             <label for="NBATEAM">Choose An NBA TEAM:</label>
-            <select id="NBATEAM" name="NBA_TEAM">
+            <select id="NBATEAM" name="NBA_TEAM" onChange={(e) => setTeamChosen(e.target.value)}>
             {Teams.map((value, index) => {
-                return <option key={index}>{value.name}</option>
+                return <option key={index}>{AllTeams[value].name}</option>
                 })}
     
             </select>
+            <div>{TeamChosen}</div>
         </div>
     )
 
