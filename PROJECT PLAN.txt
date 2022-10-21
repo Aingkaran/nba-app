@@ -1,0 +1,5 @@
+BACKEND:
+    - First get the TeamID from stored variable dictonaries in ./NBATEAM
+    - From the TeamID I can get roster of the Team
+    - Player ID can be taken from there 
+        - Player Profile GET can get

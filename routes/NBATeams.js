@@ -4,9 +4,10 @@ const NbaTeamController = require('../controllers/NBATeamController');
 
 const router = express.Router();
 
+// router.get('/', NbaTeamController.GetNbaPlayers);
+
+
 router.get('/', NbaTeamController.GetNbaPlayers);
-
-
 
 
 
