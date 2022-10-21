@@ -27,7 +27,6 @@ const axios = require("axios");
 
 
 exports.GetNbaPlayers = (req,res) => {
-    console.log(req.query)
     const options = {
         method: 'GET',
         url: `http://api.sportradar.us/nba/trial/v7/en/teams/${NbaTeams.AllTeams[req.query.Team].id}/profile.json?api_key=c83bmnmqk6rphqcyetq3r928`,
@@ -37,7 +36,7 @@ exports.GetNbaPlayers = (req,res) => {
     
 
     axios.request(options).then((response) => {
-        console.log(response.data.players)
+        res.json(response)
     }).catch((error) => {
         console.error(error)
     })

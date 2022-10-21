@@ -12,7 +12,9 @@ const Players=(props)=>{
 
 
 
-    const getTeamRoster = () => {
+    const getTeamRoster = (event) => {
+        event.preventDefault();
+
         const Team = {
             method: 'GET',
             url: 'http://localhost:5000/',
@@ -20,18 +22,14 @@ const Players=(props)=>{
         }
 
         axios.request(Team).then((response) => {
-            console.log(response.data)
+            console.log(response)
 
         }).catch((error) => {
             console.error(error)
         })
     }
 
-    const handleSubmit = (event) => {
-        event.preventDefault();
-        setRoster(event)
-      }
-
+  
 
     return(
         <div className="counter">
