@@ -1,0 +1,8 @@
+.defaultIMG{
+    width: 100px;
+    border: 2px solid black
+}
+
+.playerData-container{
+    display:flex;
+}

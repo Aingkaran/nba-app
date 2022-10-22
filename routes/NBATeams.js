@@ -8,6 +8,7 @@ const router = express.Router();
 
 
 router.get('/', NbaTeamController.GetNbaPlayers);
+router.get('/PlayerStats', NbaTeamController.GetPlayerStats);
 
 
 
