@@ -1,6 +1,7 @@
 const NbaTeams= require('../NBATeam')
 const axios = require("axios");
-
+const dotenv = require('dotenv');
+dotenv.config();
 
 
 
@@ -29,15 +30,16 @@ const axios = require("axios");
 exports.GetNbaPlayers = (req,res) => {
     const options = {
         method: 'GET',
-        url: `http://api.sportradar.us/nba/trial/v7/en/teams/${NbaTeams.AllTeams[req.query.Team].id}/profile.json?api_key=c83bmnmqk6rphqcyetq3r928`,
-        params: {Team: "Raptors"},
+        url: `http://api.sportradar.us/nba/trial/v7/en/teams/${NbaTeams.AllTeams[req.query.Team].id}/profile.json?api_key=${process.env.API_KEY}`,
+        params: {Team: req.query.Team},
         
     }
     
 
     axios.request(options).then((response) => {
-        res.json(response)
+        res.json(response.data)
     }).catch((error) => {
         console.error(error)
     })
 }
+
