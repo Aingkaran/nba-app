@@ -35,10 +35,7 @@ const Players=(props)=>{
 
 
 
-
-
-
-    useEffect(() => {
+    const getTeamRoster=()=>{
         const Team = {
             method: 'GET',
             url: 'http://localhost:5000/',
@@ -67,11 +64,10 @@ const Players=(props)=>{
         }).catch((error) => {
             console.error(error)
         })
-        
-      }, [SelectedTeam])
 
+    }
 
-      useEffect(() => {
+    const getPlayerStats=()=>{
         const Team = {
             method: 'GET',
             url: 'http://localhost:5000/PlayerStats',
@@ -102,6 +98,19 @@ const Players=(props)=>{
         }).catch((error) => {
             console.error(error)
         })
+
+
+    }
+
+
+    useEffect(() => {
+        getTeamRoster()
+        
+      }, [SelectedTeam])
+
+
+      useEffect(() => {
+        getPlayerStats()
         
       }, [Player])
 
