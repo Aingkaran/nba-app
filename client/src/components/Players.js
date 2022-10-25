@@ -89,8 +89,6 @@ const Players=(props)=>{
                     setPlayerSteals(response.data.players[i].average.steals)
                     setPlayerBlocks(response.data.players[i].average.blocks)
 
-
-
                 }
 
             }

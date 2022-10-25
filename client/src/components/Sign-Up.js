@@ -21,7 +21,7 @@ const Signup =()=>{
         email: registerEmail,
       },
       withCredentials: true,
-      url: "http://localhost:5000/register",
+      url: "http://localhost:5000//api/users",
     }).then((res) => console.log(res));
   };
 
