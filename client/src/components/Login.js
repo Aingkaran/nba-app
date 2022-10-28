@@ -21,11 +21,8 @@ const Login =()=>{
       },
       withCredentials: true,
       url: "http://localhost:3000/login",
-    }).then((res) => console.log(res));
-  };
+    }).then((res) => 
 
-  const getUser = (event) => {
-    event.preventDefault();
     axios({
       method: "GET",
       withCredentials: true,
@@ -33,8 +30,10 @@ const Login =()=>{
     }).then((res) => {
       setData(res.data);
       console.log(res.data);
-    });
+    }));
   };
+
+
 
   
     
@@ -87,8 +86,8 @@ const Login =()=>{
         
         <div>
           <h1>Get User</h1>
-          <button onClick={getUser}>Submit</button>
-          {data ? <h1>Welcome Back {data.username}</h1> : null}
+          <button >Submit</button>
+          {data ? <h1>Welcome Back {data.firstName}</h1> : null}
         </div>
         
       </div>

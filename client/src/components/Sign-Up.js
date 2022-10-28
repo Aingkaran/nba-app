@@ -8,9 +8,9 @@ const Signup =()=>{
 
   const [registerUsername, setRegisterUsername] = useState("");
   const [registerPassword, setRegisterPassword] = useState("");
-  const [resgusterFirstName, setRegisterFirstName] = useState("");
+  const [registerFirstName, setRegisterFirstName] = useState("");
 
-  const [resgisterLastName, setRegisterLastName] = useState("");
+  const [registerLastName, setRegisterLastName] = useState("");
 
 
   const register = (event) => {
@@ -21,6 +21,8 @@ const Signup =()=>{
       data: {
         username: registerUsername,
         password: registerPassword,
+        firstName: registerFirstName,
+        lastName: registerLastName,
       },
       withCredentials: true,
       url: "http://localhost:5000/register",
