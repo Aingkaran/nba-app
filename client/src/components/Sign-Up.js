@@ -37,7 +37,7 @@ const Signup =()=>{
         <h3>Sign Up</h3>
         <div className="mb-3">
           <label>First name</label>
-          <input
+          <input required
             type="text"
             className="form-control"
             placeholder="First name"
@@ -47,7 +47,7 @@ const Signup =()=>{
         </div>
         <div className="mb-3">
           <label>Last name</label>
-          <input 
+          <input required
             type="text" 
             className="form-control" 
             placeholder="Last name" 
@@ -57,7 +57,7 @@ const Signup =()=>{
         </div>
         <div className="mb-3">
           <label>Email address</label>
-          <input
+          <input required
             type="email"
             className="form-control"
             placeholder="Enter email"
@@ -67,7 +67,7 @@ const Signup =()=>{
         </div>
         <div className="mb-3">
           <label>Password</label>
-          <input
+          <input required
             type="password"
             className="form-control"
             placeholder="Enter password"

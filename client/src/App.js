@@ -10,10 +10,7 @@ function App() {
 
   return (
     <div className="App">
-      <Header_Login></Header_Login>
-      <Signup></Signup>
       <Login></Login>
-
       <Players className="container-xxl"></Players>
     </div>
   );

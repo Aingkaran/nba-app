@@ -1,13 +1,22 @@
 import 'bootstrap/dist/css/bootstrap.min.css'
 import React, { useState, useEffect } from "react";
 import axios from 'axios'
+import Header_Login from "./Header_Login";
+import {createContext} from "react";
+
+const Name = createContext();
+
 
 
 const Login =()=>{
   const [loginUsername, setLoginUsername] = useState("");
   const [loginPassword, setLoginPassword] = useState("");
+  const [showLogin,setshowlogin]=useState(false)
+  const [loginClicked, setloginClicked] = useState(false)
 
-  const [data, setData] = useState(null);
+  const [data, setData] = useState(false);
+
+
 
 
   const login = (event) => {
@@ -31,15 +40,28 @@ const Login =()=>{
       setData(res.data);
       console.log(res.data);
     }));
+    setshowlogin(true)
   };
-
 
 
   
     
     return (
       <div>
-        <form onSubmit={login}>
+            <nav className="navbar navbar-dark bg-primary">
+                <div className="container-fluid">
+                    <a className="navbar-brand" href="#">NBA Fantasy Stats</a>
+
+                    {data? <button type="button" class="btn btn-dark">Team </button>:<button  type="button" class="btn btn-dark">Register </button>}
+                    {data? <button onClick={()=>setData(null)} type="button" class="btn btn-dark">Logout </button>:<button onClick={()=>setloginClicked(!loginClicked)}  type="button" class="btn btn-dark">Login </button>}
+
+                    
+                </div>
+            </nav>
+            {data ? <div >Welcome, {data.firstName}</div> : null}
+
+
+        {loginClicked&&!data?<form onSubmit={login} >
           <h3>Sign In</h3>
           <div className="mb-3">
             <label>Email address</label>
@@ -82,13 +104,9 @@ const Login =()=>{
             Forgot <a href="#">password?</a>
           </p>
           
-        </form>
+        </form>:null}
         
-        <div>
-          <h1>Get User</h1>
-          <button >Submit</button>
-          {data ? <h1>Welcome Back {data.firstName}</h1> : null}
-        </div>
+    
         
       </div>
 
@@ -98,4 +116,6 @@ const Login =()=>{
 }
 
 
-export default Login
+export default Login;
+
+export {Name};
