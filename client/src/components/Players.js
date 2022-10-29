@@ -34,7 +34,8 @@ const Players=(props)=>{
     const [Roster, setRoster] = useState([""])
     const [PlayerData, setPlayerData]= useState({})
 
-
+    const [myTeamPlayers, setmyTeamPlayers]= useState({})
+    const [addbuttonClicked, setaddbuttonClicked]= useState(false)
 
     const getTeamRoster=()=>{
         const Team = {
@@ -104,8 +105,14 @@ const Players=(props)=>{
     }
 
 
-    const getPlayerHeadshot=()=>{
+    const savePlayer=()=>{
+        const playerInfo = {
+            Name: Player,
+            Team: AllTeams[SelectedTeam].id,
+            id: PlayerData[Player].id
 
+        }
+        setmyTeamPlayers(playerInfo)
     }
 
 
@@ -121,6 +128,9 @@ const Players=(props)=>{
       }, [Player])
 
     
+      useEffect(() => {
+        console.log("Works")
+      }, [addbuttonClicked])
 
 
   
@@ -129,17 +139,17 @@ const Players=(props)=>{
         <div className="Player Stats">
             
             <form >
-            <label className= "form-title" for="NBATEAM">TEAM  </label>
+            <label className= "form-title" htmlFor="NBATEAM">TEAM  </label>
 
-            <select className="form-select" id="NBATEAM" name="NBA_TEAM" onChange={(e) => {setSelectedTeam(e.target.value);}} >
+            <select className="form-select" id="NBATEAM" name="NBA_TEAM" onChange={(e) => {setSelectedTeam(e.target.value)}} >
                 <option></option>
                 {Teams.map((value, index) => {
                     return <option key={index}>{AllTeams[value].name}</option>
                     })}
             </select>
 
-            <label className= "form-title" for="NBAPLAYER">Player  </label>
-            <select className="form-select"  id="NBAPLAYER" name="NBA_PLAYER" onChange={(e) => {setPlayer(e.target.value);}}>
+            <label className= "form-title" htmlFor="NBAPLAYER">Player  </label>
+            <select className="form-select"  id="NBAPLAYER" name="NBA_PLAYER" onChange={(e) => {setPlayer(e.target.value)}}>
                 <option></option>
                 {Roster.map((value, index) => {
                     return <option key={index}>{value}</option>
@@ -150,7 +160,7 @@ const Players=(props)=>{
 
             
             <div className="playerData-container">
-                <img src={playerHeadshot} alt="default-img" className="defaultIMG"/>
+                {playerHeadshot?<img src={playerHeadshot} alt="default-img" className="defaultIMG"/>:<img src={defaultIMG} alt="default-img" className="defaultIMG"/>}
                 <div className="complete-data-container">
                     
                     <div className="playerName">{Player}</div>
@@ -163,7 +173,6 @@ const Players=(props)=>{
 
                         </div>
                         <div className="right-side-data">
-                            {console.log(parseFloat(PlayerFG).toFixed(2)*100)}
                             <div>FG: {parseFloat(PlayerFG).toFixed(2)*100}%</div>
                             <div>3P: {parseFloat(Player3PT).toFixed(2)*100}%</div>
                             <div>STL: {parseFloat(PlayerSteals).toFixed(1)}</div>
@@ -174,10 +183,9 @@ const Players=(props)=>{
            
                 </div>
                 {/* bootstrap plus icon */}
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-square" viewBox="0 0 16 16">
-                    <path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/>
-                    <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
-                </svg> 
+                <button onClick={()=>setaddbuttonClicked(!addbuttonClicked)} type="button" className="btn btn-secondary btn-sm">ADD</button>
+
+
                 
             </div>
 

@@ -53,8 +53,8 @@ const Login =()=>{
                 <div className="container-fluid">
                     <a className="navbar-brand" href="#">NBA Fantasy Stats</a>
 
-                    {data? <button type="button" class="btn btn-dark">Team </button>:<button onClick={()=>setregisterClicked(!registerClicked)}  type="button" class="btn btn-dark">Register </button>}
-                    {data? <button onClick={()=>setData(null)} type="button" class="btn btn-dark">Logout </button>:<button onClick={()=>setloginClicked(!loginClicked)}  type="button" class="btn btn-dark">Login </button>}
+                    {data? <button type="button" className="btn btn-dark">Team </button>:<button onClick={()=>setregisterClicked(!registerClicked)}  type="button" className="btn btn-dark">Register </button>}
+                    {data? <button onClick={()=>setData(null)} type="button" className="btn btn-dark">Logout </button>:<button onClick={()=>setloginClicked(!loginClicked)}  type="button" className="btn btn-dark">Login </button>}
 
                     
                 </div>
