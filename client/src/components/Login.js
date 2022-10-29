@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 import axios from 'axios'
 import Header_Login from "./Header_Login";
 import {createContext} from "react";
+import Signup from './Sign-Up';
 
 const Name = createContext();
 
@@ -13,7 +14,7 @@ const Login =()=>{
   const [loginPassword, setLoginPassword] = useState("");
   const [showLogin,setshowlogin]=useState(false)
   const [loginClicked, setloginClicked] = useState(false)
-
+  const [registerClicked, setregisterClicked]= useState(false)
   const [data, setData] = useState(false);
 
 
@@ -52,13 +53,15 @@ const Login =()=>{
                 <div className="container-fluid">
                     <a className="navbar-brand" href="#">NBA Fantasy Stats</a>
 
-                    {data? <button type="button" class="btn btn-dark">Team </button>:<button  type="button" class="btn btn-dark">Register </button>}
+                    {data? <button type="button" class="btn btn-dark">Team </button>:<button onClick={()=>setregisterClicked(!registerClicked)}  type="button" class="btn btn-dark">Register </button>}
                     {data? <button onClick={()=>setData(null)} type="button" class="btn btn-dark">Logout </button>:<button onClick={()=>setloginClicked(!loginClicked)}  type="button" class="btn btn-dark">Login </button>}
 
                     
                 </div>
             </nav>
             {data ? <div >Welcome, {data.firstName}</div> : null}
+
+        {registerClicked?<Signup></Signup>:null}
 
 
         {loginClicked&&!data?<form onSubmit={login} >

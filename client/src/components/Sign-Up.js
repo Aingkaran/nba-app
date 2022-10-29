@@ -4,7 +4,7 @@ import axios from 'axios'
 import { Link, useNavigate } from "react-router-dom";
 
 
-const Signup =()=>{
+const Signup =(props)=>{
 
   const [registerUsername, setRegisterUsername] = useState("");
   const [registerPassword, setRegisterPassword] = useState("");
@@ -12,7 +12,7 @@ const Signup =()=>{
 
   const [registerLastName, setRegisterLastName] = useState("");
 
-
+  const [registerClicked, setregisterClicked] = useState(true)
   const register = (event) => {
     event.preventDefault();
 
@@ -26,14 +26,15 @@ const Signup =()=>{
       },
       withCredentials: true,
       url: "http://localhost:5000/register",
-    }).then((res) => console.log(res));
+    }).then((res) => setregisterClicked(false));
   };
 
 
 
 
     return (
-      <form onSubmit={register}>
+      <div>
+      {registerClicked?<form onSubmit={register}>
         <h3>Sign Up</h3>
         <div className="mb-3">
           <label>First name</label>
@@ -83,7 +84,8 @@ const Signup =()=>{
         <p className="forgot-password text-right">
           Already registered <a href="/sign-in">sign in?</a>
         </p>
-      </form>
+      </form>:null}
+      </div>
     )
   
 }
