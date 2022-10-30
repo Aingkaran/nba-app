@@ -34,7 +34,7 @@ const Players=(props)=>{
     const [Roster, setRoster] = useState([""])
     const [PlayerData, setPlayerData]= useState({})
 
-    const [myTeamPlayers, setmyTeamPlayers]= useState({})
+    const [myTeamPlayers, setmyTeamPlayers]= useState([])
     const [addbuttonClicked, setaddbuttonClicked]= useState(false)
 
     const getTeamRoster=()=>{
@@ -112,7 +112,11 @@ const Players=(props)=>{
             id: PlayerData[Player].id
 
         }
-        setmyTeamPlayers(playerInfo)
+        let myTeam = myTeamPlayers
+        myTeam.push(playerInfo)
+
+        setmyTeamPlayers(myTeam)
+        console.log(myTeam)
     }
 
 
@@ -128,9 +132,7 @@ const Players=(props)=>{
       }, [Player])
 
     
-      useEffect(() => {
-        console.log("Works")
-      }, [addbuttonClicked])
+
 
 
   
@@ -183,7 +185,7 @@ const Players=(props)=>{
            
                 </div>
                 {/* bootstrap plus icon */}
-                <button onClick={()=>setaddbuttonClicked(!addbuttonClicked)} type="button" className="btn btn-secondary btn-sm">ADD</button>
+                <button onClick={()=>savePlayer()} type="button" className="btn btn-secondary btn-sm">ADD</button>
 
 
                 
