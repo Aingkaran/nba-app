@@ -94,7 +94,33 @@ app.get("/user", (req, res) => {
 
 
 
+app.delete("/logout", (req,res) => {
+  req.logOut()
+  res.redirect("/")
+  console.log(`-------> User Logged out`)
+})
 
+
+
+app.post("/logout", async function (req, res, next) {
+
+  console.log("logout user", req.user)
+
+  try {
+      req.logOut(req.user, function (err) {
+          console.log("logout callback called")
+          if (err) {
+              console.log("error", err)
+              return next(err);
+
+          }
+      
+      });
+  } catch (e) {
+      console.log(e)
+  }res.json(req.isAuthenticated())
+  console.log("logout called")
+});
 
 
 app.use('/', NbaTeams);

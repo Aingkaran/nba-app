@@ -30,13 +30,13 @@ const Login =()=>{
         password: loginPassword,
       },
       withCredentials: true,
-      url: "http://localhost:3000/login",
+      url: "http://localhost:5000/login",
     }).then((res) => 
 
     axios({
       method: "GET",
       withCredentials: true,
-      url: "http://localhost:3000/user",
+      url: "http://localhost:5000/user",
     }).then((res) => {
       setData(res.data);
       console.log(res.data);
@@ -45,6 +45,18 @@ const Login =()=>{
   };
 
 
+
+  function logout() {
+    axios({method: "POST", url: "http://localhost:5000/logout", withCredentials: true}).then((response) => {
+       console.log("response status", response)
+       setData(null)
+
+       if (response.status === 200) {
+
+       }
+   })
+
+}
   
     
     return (
@@ -54,7 +66,7 @@ const Login =()=>{
                     <a className="navbar-brand" href="#">NBA Fantasy Stats</a>
 
                     {data? <button type="button" className="btn btn-dark">Team </button>:<button onClick={()=>setregisterClicked(!registerClicked)}  type="button" className="btn btn-dark">Register </button>}
-                    {data? <button onClick={()=>setData(null)} type="button" className="btn btn-dark">Logout </button>:<button onClick={()=>setloginClicked(!loginClicked)}  type="button" className="btn btn-dark">Login </button>}
+                    {data? <button onClick={logout} type="button" className="btn btn-dark">Logout </button>:<button onClick={()=>setloginClicked(!loginClicked)}  type="button" className="btn btn-dark">Login </button>}
 
                     
                 </div>
