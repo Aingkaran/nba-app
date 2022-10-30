@@ -73,7 +73,7 @@ const Login =()=>{
             </nav>
             {data ? <div >Welcome, {data.firstName}</div> : null}
 
-        {registerClicked?<Signup></Signup>:null}
+        {registerClicked ? <Signup></Signup>:null}
 
 
         {loginClicked&&!data?<form onSubmit={login} >

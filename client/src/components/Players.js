@@ -37,6 +37,21 @@ const Players=(props)=>{
     const [myTeamPlayers, setmyTeamPlayers]= useState([])
     const [addbuttonClicked, setaddbuttonClicked]= useState(false)
 
+    const addPlayer = (event) => {
+    
+        axios({
+          method: "POST",
+          data: {
+            username: "AJ@gmail.com",
+            players: [[AllTeams[SelectedTeam].id,PlayerData[Player].id]]
+
+          },
+          withCredentials: true,
+          url: "http://localhost:5000/myTeam",
+        })
+      };
+    
+
     const getTeamRoster=()=>{
         const Team = {
             method: 'GET',
@@ -185,7 +200,7 @@ const Players=(props)=>{
            
                 </div>
                 {/* bootstrap plus icon */}
-                <button onClick={()=>savePlayer()} type="button" className="btn btn-secondary btn-sm">ADD</button>
+                <button onClick={()=>addPlayer()} type="button" className="btn btn-secondary btn-sm">ADD</button>
 
 
                 

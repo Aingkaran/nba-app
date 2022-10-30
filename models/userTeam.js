@@ -4,14 +4,12 @@ const mongoose = require("mongoose");
 const userTeam = new mongoose.Schema({
     user: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'user'
+        ref: 'User'
     },
 
     players : {
-        type: Array
-        
+        type: [[String,String]],
     }
-
 
   
 });

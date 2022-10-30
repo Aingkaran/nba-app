@@ -13,6 +13,8 @@ const port = process.env.PORT || 5000;
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
+const UserTeam= require('./models/userTeam')
+
 mongoose.connect(
   "mongodb+srv://NBA-APP:Aingkaran@nba-app.douk6cs.mongodb.net/?retryWrites=true&w=majority",
   {
@@ -62,7 +64,7 @@ app.post("/register", (req, res) => {
     if (!doc) {
       const hashedPassword = await bcrypt.hash(req.body.password, 10);
 
-      const newUser = new User({
+      const newUser = new UserTeam({
         username: req.body.username,
         password: hashedPassword,
         firstName: req.body.firstName,
@@ -70,6 +72,24 @@ app.post("/register", (req, res) => {
       });
       await newUser.save();
       res.send("User Created");
+    }
+  });
+});
+
+
+
+app.post("/myTeam", (req, res) => {
+  User.findOne({ username: req.body.username }, async (err, doc) => {
+    if (err) throw err;
+    if (!doc) res.send("User Doesn't Exists");
+    if (doc) {
+
+      const newTeam = new UserTeam({
+        players: req.body.players,
+
+      });
+      await newTeam.save();
+      res.send("MyTeam Created");
     }
   });
 });
@@ -121,6 +141,8 @@ app.post("/logout", async function (req, res, next) {
   }res.json(req.isAuthenticated())
   console.log("logout called")
 });
+
+
 
 
 app.use('/', NbaTeams);
