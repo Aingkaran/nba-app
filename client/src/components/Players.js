@@ -42,13 +42,15 @@ const Players=(props)=>{
         axios({
           method: "POST",
           data: {
-            username: "AJ@gmail.com",
+            user: "aingkaran1995@gmail.com",
             players: [[AllTeams[SelectedTeam].id,PlayerData[Player].id]]
 
           },
           withCredentials: true,
           url: "http://localhost:5000/myTeam",
-        })
+        }).then((res) => {
+            console.log(res.data);
+          })
       };
     
 

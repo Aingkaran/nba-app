@@ -13,7 +13,7 @@ const port = process.env.PORT || 5000;
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
-const UserTeam= require('./models/userTeam')
+const userTeam = require('./models/userTeam');
 
 mongoose.connect(
   "mongodb+srv://NBA-APP:Aingkaran@nba-app.douk6cs.mongodb.net/?retryWrites=true&w=majority",
@@ -64,7 +64,7 @@ app.post("/register", (req, res) => {
     if (!doc) {
       const hashedPassword = await bcrypt.hash(req.body.password, 10);
 
-      const newUser = new UserTeam({
+      const newUser = new User({
         username: req.body.username,
         password: hashedPassword,
         firstName: req.body.firstName,
@@ -78,17 +78,18 @@ app.post("/register", (req, res) => {
 
 
 
-app.post("/myTeam", (req, res) => {
+app.post("/myTeam", async (req, res) => {
   User.findOne({ username: req.body.username }, async (err, doc) => {
     if (err) throw err;
     if (!doc) res.send("User Doesn't Exists");
     if (doc) {
 
-      const newTeam = new UserTeam({
+      const newTeam ={
+        user: req.body.user,
         players: req.body.players,
 
-      });
-      await newTeam.save();
+      };
+      await userTeam.create(newTeam);
       res.send("MyTeam Created");
     }
   });
