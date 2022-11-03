@@ -26,7 +26,22 @@ const Signup =(props)=>{
       },
       withCredentials: true,
       url: "http://localhost:5000/register",
-    }).then((res) => setregisterClicked(false));
+    }).then((res) => setregisterClicked(false)).then(
+      
+        axios({
+          method: "POST",
+          data: {
+            user: registerUsername,
+            players: []
+
+          },
+          withCredentials: true,
+          url: "http://localhost:5000/myTeam",
+        }).then((res) => {
+            console.log(res.data);
+          })
+      
+    );
   };
 
 

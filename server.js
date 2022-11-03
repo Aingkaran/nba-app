@@ -79,7 +79,6 @@ app.post("/register", (req, res) => {
 
 
 app.post("/myTeam", async (req, res) => {
-  // User.findOne({ username: req.body.username }, async (err, doc) => {
       const newTeam ={
         user: req.body.user,
         players: req.body.players,
@@ -88,9 +87,20 @@ app.post("/myTeam", async (req, res) => {
       await userTeam.create(newTeam);
       res.send("MyTeam Created");
     
-  // });
+
 });
 
+
+
+app.post("/updateTeam", async (req, res) => {
+
+
+  await userTeam.replaceOne({ user: req.body.user }, { players: req.body.players });
+
+  res.send("MyTeam Updated");
+
+
+});
 
 app.post("/login", (req, res, next) => {
   passport.authenticate("local", (err, user, info) => {
