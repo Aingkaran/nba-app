@@ -79,11 +79,7 @@ app.post("/register", (req, res) => {
 
 
 app.post("/myTeam", async (req, res) => {
-  User.findOne({ username: req.body.username }, async (err, doc) => {
-    if (err) throw err;
-    if (!doc) res.send("User Doesn't Exists");
-    if (doc) {
-
+  // User.findOne({ username: req.body.username }, async (err, doc) => {
       const newTeam ={
         user: req.body.user,
         players: req.body.players,
@@ -91,8 +87,8 @@ app.post("/myTeam", async (req, res) => {
       };
       await userTeam.create(newTeam);
       res.send("MyTeam Created");
-    }
-  });
+    
+  // });
 });
 
 

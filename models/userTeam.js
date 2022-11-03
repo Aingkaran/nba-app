@@ -3,13 +3,11 @@ const mongoose = require("mongoose");
 
 const userTeam = new mongoose.Schema({
     user: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'User',
-        required: true, 
+        type: String
     },
 
     players : {
-        type: [String,String],
+        type: [[String,String]],
     }
 
   

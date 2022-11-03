@@ -43,7 +43,7 @@ const Players=(props)=>{
           method: "POST",
           data: {
             user: "aingkaran1995@gmail.com",
-            players: [[AllTeams[SelectedTeam].id,PlayerData[Player].id]]
+            players: [[AllTeams[SelectedTeam].id,PlayerData[Player].id],[AllTeams[SelectedTeam].id,PlayerData[Player].id]]
 
           },
           withCredentials: true,
