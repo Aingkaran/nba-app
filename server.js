@@ -102,6 +102,23 @@ app.post("/updateTeam", async (req, res) => {
 
 });
 
+
+app.get("/getTeam", async (req, res) => {
+
+
+  userTeam.find({ user: req.body.user }).then((data) => {
+   console.log('Data: ', data);
+   res.json(data);
+   })
+   .catch((error) => {
+       console.log('error: ', daerrorta);
+   });
+
+
+});
+
+
+
 app.post("/login", (req, res, next) => {
   passport.authenticate("local", (err, user, info) => {
     if (err) throw err;

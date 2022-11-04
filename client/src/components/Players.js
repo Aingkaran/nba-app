@@ -37,6 +37,9 @@ const Players=(props)=>{
     const [myTeamPlayers, setmyTeamPlayers]= useState([])
     const [addbuttonClicked, setaddbuttonClicked]= useState(false)
     const [Username, setUsername]= useState("")
+    const [savedTeam, setsavedTeam]= useState([])
+
+
 
     const addPlayer = (event) => {
         axios({
@@ -45,22 +48,36 @@ const Players=(props)=>{
             url: "http://localhost:5000/user",
           }).then((res) => {
             setUsername(res.data.username);
-            console.log(res.data.username);
           })
           .then(
     
             axios({
+            method: "GET",
+            data: {
+                user: Username,
+
+            },
+            url: "http://localhost:5000/getTeam",
+        }).then((res)=>{
+            setsavedTeam(res.data[0].players)
+        }))
+          .then(()=>{
+            console.log(savedTeam)
+            const newPlayer = savedTeam
+            newPlayer.push([AllTeams[SelectedTeam].id,PlayerData[Player].id])
+            axios({
+            
             method: "POST",
             data: {
                 user: Username,
-                players: [[AllTeams[SelectedTeam].id,PlayerData[Player].id],[AllTeams[SelectedTeam].id,PlayerData[Player].id]]
+                players: newPlayer,
 
             },
             withCredentials: true,
             url: "http://localhost:5000/updateTeam",
         }).then((res) => {
             console.log(res.data);
-          }))
+          })})
       };
     
 
