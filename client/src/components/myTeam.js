@@ -9,7 +9,7 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 
 
 
-const Players=(props)=>{
+const myTeam=(props)=>{
 
     const [Player,setPlayer] = useState("Player Name")
     const [PlayerPoints, setPlayerPoints] = useState("")
@@ -34,8 +34,52 @@ const Players=(props)=>{
     const [Roster, setRoster] = useState([""])
     const [PlayerData, setPlayerData]= useState({})
 
-    const [myTeamPlayers, setmyTeamPlayers]= useState({})
+    const [myTeamPlayers, setmyTeamPlayers]= useState([])
     const [addbuttonClicked, setaddbuttonClicked]= useState(false)
+    const [Username, setUsername]= useState("")
+    const [savedTeam, setsavedTeam]= useState([])
+
+
+
+    const addPlayer = (event) => {
+        axios({
+            method: "GET",
+            withCredentials: true,
+            url: "http://localhost:5000/user",
+          }).then((res) => {
+            setUsername(res.data.username);
+          })
+          .then(
+    
+            axios({
+            method: "GET",
+            data: {
+                user: Username,
+
+            },
+            url: "http://localhost:5000/getTeam",
+        }).then((res)=>{
+            console.log(res.data[0].players)
+            setsavedTeam(res.data[0].players)
+        }))
+          .then(()=>{
+            let newTeam = savedTeam
+            newTeam.push([AllTeams[SelectedTeam].id,PlayerData[Player].id])
+            console.log(newTeam)
+            axios({
+            
+            method: "POST",
+            data: {
+                user: Username,
+                players: newTeam,
+
+            },
+            withCredentials: true,
+            url: "http://localhost:5000/updateTeam",
+        }).then((res) => {
+          })})
+      };
+    
 
     const getTeamRoster=()=>{
         const Team = {
@@ -112,7 +156,11 @@ const Players=(props)=>{
             id: PlayerData[Player].id
 
         }
-        setmyTeamPlayers(playerInfo)
+        let myTeam = myTeamPlayers
+        myTeam.push(playerInfo)
+
+        setmyTeamPlayers(myTeam)
+        console.log(myTeam)
     }
 
 
@@ -127,10 +175,12 @@ const Players=(props)=>{
         
       }, [Player])
 
+
+
+
+
     
-      useEffect(() => {
-        console.log("Works")
-      }, [addbuttonClicked])
+
 
 
   
@@ -183,7 +233,7 @@ const Players=(props)=>{
            
                 </div>
                 {/* bootstrap plus icon */}
-                <button onClick={()=>setaddbuttonClicked(!addbuttonClicked)} type="button" className="btn btn-secondary btn-sm">ADD</button>
+                <button onClick={()=>addPlayer()} type="button" className="btn btn-secondary btn-sm">ADD</button>
 
 
                 
@@ -196,4 +246,4 @@ const Players=(props)=>{
 }
 
 
-export default Players
+export default myTeam

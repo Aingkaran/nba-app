@@ -59,24 +59,24 @@ const Players=(props)=>{
             },
             url: "http://localhost:5000/getTeam",
         }).then((res)=>{
+            console.log(res.data[0].players)
             setsavedTeam(res.data[0].players)
         }))
           .then(()=>{
-            console.log(savedTeam)
-            const newPlayer = savedTeam
-            newPlayer.push([AllTeams[SelectedTeam].id,PlayerData[Player].id])
+            let newTeam = savedTeam
+            newTeam.push([AllTeams[SelectedTeam].id,PlayerData[Player].id])
+            console.log(newTeam)
             axios({
             
             method: "POST",
             data: {
                 user: Username,
-                players: newPlayer,
+                players: newTeam,
 
             },
             withCredentials: true,
             url: "http://localhost:5000/updateTeam",
         }).then((res) => {
-            console.log(res.data);
           })})
       };
     
@@ -174,6 +174,10 @@ const Players=(props)=>{
         getPlayerStats()
         
       }, [Player])
+
+
+
+
 
     
 
