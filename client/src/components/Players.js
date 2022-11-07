@@ -50,7 +50,6 @@ const Players=(props)=>{
             setUsername(res.data.username);
           })
           .then(
-    
             axios({
             method: "GET",
             data: {
@@ -59,6 +58,7 @@ const Players=(props)=>{
             },
             url: "http://localhost:5000/getTeam",
         }).then((res)=>{
+            console.log(Username)
             console.log(res.data[0].players)
             setsavedTeam(res.data[0].players)
         }))

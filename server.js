@@ -94,8 +94,10 @@ app.post("/myTeam", async (req, res) => {
 
 app.post("/updateTeam", async (req, res) => {
 
-
-  await userTeam.replaceOne({ user: req.body.user }, { players: req.body.players });
+  await userTeam.replaceOne({ user: req.body.user }, { 
+    
+    user: req.body.user,
+    players: req.body.players });
 
   res.send("MyTeam Updated");
 
@@ -104,14 +106,12 @@ app.post("/updateTeam", async (req, res) => {
 
 
 app.get("/getTeam", async (req, res) => {
-
-
-  userTeam.find({ user: req.body.user }).then((data) => {
+  userTeam.find({ user: req.query.user}).then((data) => {
    console.log('Data: ', data);
    res.json(data);
    })
    .catch((error) => {
-       console.log('error: ', daerrorta);
+       console.log(error);
    });
 
 
@@ -133,7 +133,7 @@ app.post("/login", (req, res, next) => {
 });
 
 app.get("/user", (req, res) => {
-  res.send(req.user); // The req.user stores the entire user that has been authenticated inside of it.
+  res.send(req.user); 
 });
 
 
