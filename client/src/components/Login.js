@@ -2,10 +2,10 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 import React, { useState, useEffect } from "react";
 import axios from 'axios'
 import Header_Login from "./Header_Login";
-import {createContext} from "react";
 import Signup from './Sign-Up';
+import Myteam from "./Myteam";
+import Players from "./Players";
 
-const Name = createContext();
 
 
 
@@ -16,6 +16,7 @@ const Login =()=>{
   const [loginClicked, setloginClicked] = useState(false)
   const [registerClicked, setregisterClicked]= useState(false)
   const [data, setData] = useState(false);
+  const [myTeamClick, setmyTeamClick] = useState(false)
 
 
 
@@ -46,7 +47,7 @@ const Login =()=>{
 
 
 
-  function logout() {
+   const logout=()=> {
     axios({method: "POST", url: "http://localhost:5000/logout", withCredentials: true}).then((response) => {
        console.log("response status", response)
        setData(null)
@@ -65,7 +66,7 @@ const Login =()=>{
                 <div className="container-fluid">
                     <a className="navbar-brand" href="#">NBA Fantasy Stats</a>
 
-                    {data? <button type="button" className="btn btn-dark">Team </button>:<button onClick={()=>setregisterClicked(!registerClicked)}  type="button" className="btn btn-dark">Register </button>}
+                    {data? <button onClick={()=>setmyTeamClick(!myTeamClick)} type="button" className="btn btn-dark">Team </button>:<button onClick={()=>setregisterClicked(!registerClicked)}  type="button" className="btn btn-dark">Register </button>}
                     {data? <button onClick={logout} type="button" className="btn btn-dark">Logout </button>:<button onClick={()=>setloginClicked(!loginClicked)}  type="button" className="btn btn-dark">Login </button>}
 
                     
@@ -121,7 +122,9 @@ const Login =()=>{
           
         </form>:null}
         
-    
+        {myTeamClick?<Myteam updateUsername= {myTeamClick}></Myteam>:null}
+        
+
         
       </div>
 
@@ -133,4 +136,3 @@ const Login =()=>{
 
 export default Login;
 
-export {Name};

@@ -4,13 +4,13 @@ import  AllTeams from './NBATeam'
 import axios from 'axios'
 import defaultIMG from '../IMAGES/OG.png';
 import "../styles/Player.css";
-import Button from 'react-bootstrap/Button'
 import 'bootstrap/dist/css/bootstrap.min.css'
 
 
 
 const Myteam=(props)=>{
-
+    
+    const updateUsername = props 
     const [Player,setPlayer] = useState("Player Name")
     const [PlayerPoints, setPlayerPoints] = useState("")
     const [PlayerMinutes, setPlayerMinutes] = useState("")
@@ -26,40 +26,12 @@ const Myteam=(props)=>{
     const [playerHeadshot, setplayerHeadshot] = useState("")
 
 
-
-
-
-    const Teams = ["Bucks","Cavaliers","Celtics",'Clippers','Grizzlies','Hawks','Heat','Hornets','Jazz','Kings','Knicks','Lakers','Magic','Mavericks','Nets','Nuggets','Pacers','Pelicans','Pistons','Raptors','Rockets','Sixers','Spurs','Suns','Thunder','Timberwolves',"Trail_Blazers",'Warriors','Wizards']
-    const [SelectedTeam, setSelectedTeam]= useState("")
-    const [Roster, setRoster] = useState([""])
-    const [PlayerData, setPlayerData]= useState({})
-
-    const [myTeamPlayers, setmyTeamPlayers]= useState([])
-    const [addbuttonClicked, setaddbuttonClicked]= useState(false)
     const [Username, setUsername]= useState("")
     const [savedTeam, setsavedTeam]= useState([])
     const [playerList, setPlayerList]= useState([])
 
-    // useEffect(() => {
-    //     axios({
-    //         method: "GET",
-    //         data: {
-    //             user: Username,
 
-    //         },
-    //         url: "http://localhost:5000/getTeam",
-    //     }).then((res)=>{
-    //         console.log(Username)
-    //         console.log(res.data[0].players)
-    //         setsavedTeam(res.data[0].players)
-    //     })
-    //     // .then((res)=>{
-    //     //     getPlayerStats()
-    //     // })
-        
-    //   }, [Username])
-
-    const getPlayerList = (event) => {
+    useEffect(() => {
         axios({
             method: "GET",
             withCredentials: true,
@@ -67,11 +39,21 @@ const Myteam=(props)=>{
           }).then((res) => {
             setUsername(res.data.username);
             console.log(res.data.username)
-          }).then(
+          })
+        
+      }, [updateUsername])
+
+// useEffect(() => {
+//     getPlayerStats()
+//     }, [savedTeam])
+
+    const getPlayerList = (event) => {
+
             axios.request({
+                
                 method: "GET",
                 params: {
-                    user: "jega@gmail.com",
+                    user: Username,
     
                 },
                 url: "http://localhost:5000/getTeam",
@@ -79,61 +61,29 @@ const Myteam=(props)=>{
             }).then((res)=>{
                 console.log(res.data[0].players)
                 setsavedTeam(res.data[0].players)
-            })
-          )
+            }).then(getPlayerStats())
+          
        
-    
 
       };
 
 
 
-    const getTeamRoster=()=>{
-        const Team = {
-            method: 'GET',
-            url: 'http://localhost:5000/',
-            params: {Team: SelectedTeam},
-        }
-
-        let newRoster=[]
-        let playerInfo={}
 
 
-
-        axios.request(Team).then((response) => {
-            for (let i=0;i<(response.data.players).length; i++){
-                newRoster.push((response.data.players)[i].full_name)
-                playerInfo[(response.data.players)[i].full_name] =
-                    {
-                        id: (response.data.players)[i].id,
-                        reference: (response.data.players)[i].reference
-
-                    }
-
-            }
-        setRoster(newRoster)
-        setPlayerData(playerInfo)
-        console.log(playerInfo)
-        
-
-        }).catch((error) => {
-            console.error(error)
-        })
-
-    }
 
     const getPlayerStats=()=>{
         const Team = {
             method: 'GET',
             url: 'http://localhost:5000/SavedPlayerStats',
-            params: {Team: savedTeam[1][0]},
+            params: {Team: savedTeam[0][0]},
         }
 
         
 
         axios.request(Team).then((response) => {
             for (let i=0;i<(response.data.players).length; i++){
-                if (response.data.players[i].id == savedTeam[1][1]){
+                if (response.data.players[i].id == savedTeam[0][1]){
                     setPlayerPoints(response.data.players[i].average.points)
                     setPlayerMinutes(response.data.players[i].average.minutes)
                     setPlayerRebounds(response.data.players[i].average.rebounds)
@@ -144,6 +94,7 @@ const Myteam=(props)=>{
                     setPlayerSteals(response.data.players[i].average.steals)
                     setPlayerBlocks(response.data.players[i].average.blocks)
                     setplayerHeadshot(`https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/${response.data.players[i].reference}.png`)
+                    setPlayer(response.data.players[i].full_name)
                 }
 
             }
@@ -154,22 +105,6 @@ const Myteam=(props)=>{
 
 
     }
-
-
-
-
-
-
-
-
-    // useEffect(() => {
-    //     getPlayerStats()
-        
-    //   }, [savedTeam])
-
-
-
-
 
     
 
@@ -184,7 +119,7 @@ const Myteam=(props)=>{
                 {playerHeadshot?<img src={playerHeadshot} alt="default-img" className="defaultIMG"/>:<img src={defaultIMG} alt="default-img" className="defaultIMG"/>}
                 <div className="complete-data-container">
                     
-                    <div className="playerName"></div>
+                    <div className="playerName">{Player}</div>
                     <div className="Data">
                         <div className="left-side-data">
                             <div>MIN: {parseFloat(PlayerMinutes).toFixed(1)}</div>
@@ -203,11 +138,13 @@ const Myteam=(props)=>{
                     </div>
            
                 </div>
-                <button onClick={()=>getPlayerList()} type="button" className="btn btn-secondary btn-sm">ADD</button>
+                <button onClick={()=>getPlayerList()} type="button" className="btn btn-secondary btn-sm">Update</button>
     
 
                 
             </div>
+
+            
 
         </div>
     )

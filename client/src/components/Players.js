@@ -177,14 +177,6 @@ const Players=(props)=>{
 
 
 
-
-
-    
-
-
-
-  
-
     return(
         <div className="Player Stats">
             

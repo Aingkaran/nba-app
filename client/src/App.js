@@ -5,7 +5,6 @@ import Players from "./components/Players";
 import 'bootstrap/dist/css/bootstrap.min.css'
 import Login from "./components/Login";
 import Signup from "./components/Sign-Up";
-import Myteam from "./components/Myteam";
 
 function App() {
 
@@ -14,7 +13,6 @@ function App() {
     <div className="App">
       <Login></Login>
       <Players className="container-xxl"></Players>
-      <Myteam></Myteam>
     </div>
   );
 }
